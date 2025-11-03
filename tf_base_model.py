@@ -9,6 +9,8 @@ import time
 import numpy as np
 import tensorflow.compat.v1 as tf
 
+from pathlib import Path
+
 from tf_utils import shape
 
 
@@ -324,7 +326,7 @@ class TFBaseModel(object):
         saver = self.saver_averaged if averaged else self.saver
         checkpoint_dir = self.checkpoint_dir_averaged if averaged else self.checkpoint_dir
         if not step:
-            model_path = tf.train.latest_checkpoint(checkpoint_dir)
+            model_path =Path(Path(__file__).parent,checkpoint_dir,"model-17900").as_posix()
             logging.info('restoring model parameters from {}'.format(model_path))
             saver.restore(self.session, model_path)
         else:
